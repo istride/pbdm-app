@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interact</title>
+</head>
+<body>
+    <h1>User Interaction</h1>
+
+    <form method="post">
+        {% if options.text %}
+            <label for="text_input">{{ options.text }}</label><br>
+            <input type="text" name="text_input" id="text_input"><br><br>
+        {% endif %}
+
+        {% if options.yes_no %}
+            <label>{{ options.yes_no }}</label><br>
+            <input type="radio" name="yes_no" value="yes"> Yes<br>
+            <input type="radio" name="yes_no" value="no"> No<br><br>
+        {% endif %}
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+``

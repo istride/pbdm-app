@@ -1,0 +1,457 @@
+{
+    "name": "Alfalfa weevil",
+    "sub_populations": {
+        "egg": {
+            "variable": "n",
+            "bdfs": {
+                "development_rate": {
+                    "type": "single",
+                    "function": "max(0, a*(TEMP-b) / (1 + c**(TEMP-d)))",
+                    "inputs": {
+                        "a": 0.0105,
+                        "b": 10.75,
+                        "c": 2.5,
+                        "d": 35.5
+                    }
+                },
+                "mortality_rate": {
+                    "type": "single",
+                    "function": "max(0, a*TEMP**4 + b*TEMP**3 + c*TEMP**2 + d*TEMP + e)",
+                    "inputs": {
+                        "a": 0.094876,
+                        "b": -0.0199293,
+                        "c": 0.0016311,
+                        "d": -5.84e-05,
+                        "e": 8e-07
+                    }
+                }
+            },
+            "processes": {
+                "mortality": {
+                    "rates": {
+                        "mortality_rate": {
+                            "type": "age_structured",
+                            "function": "1*mortality_rate*number",
+                            "inputs": {
+                                "mortality_rate": "egg.bdfs.mortality_rate"
+                            },
+                            "age_structured_inputs": {
+                                "number": "egg.n"
+                            }
+                        }
+                    },
+                    "variables": {
+                        "var": {
+                            "type": "age_structured",
+                            "function": "-mortality_rate",
+                            "age_structured_inputs": [
+                                "mortality_rate"
+                            ]
+                        }
+                    }
+                }
+            },
+            "dynamics": {
+                "numbers": {
+                    "type": "distributed_delay",
+                    "rate": {
+                        "function": "dev_rate * k/Del",
+                        "inputs": {
+                            "dev_rate": "egg.bdfs.development_rate"
+                        }
+                    }
+                }
+            },
+            "age_structure": {
+                "k": 3,
+                "variable": "A"
+            },
+            "Del": 100.7
+        },
+        "larva": {
+            "variable": "n",
+            "bdfs": {
+                "development_rate": {
+                    "type": "single",
+                    "function": "max(0, a*(TEMP-b) / (1 + c**(TEMP-d)))",
+                    "inputs": {
+                        "a": 0.0065,
+                        "b": 10.75,
+                        "c": 2.5,
+                        "d": 35.5
+                    }
+                },
+                "mortality_rate": {
+                    "type": "single",
+                    "function": "max(0, a*TEMP**4 + b*TEMP**3 + c*TEMP**2 + d*TEMP + e)",
+                    "inputs": {
+                        "a": 0.0220431,
+                        "b": -0.0019589,
+                        "c": -1.68e-05,
+                        "d": 6e-06,
+                        "e": -1e-07
+                    }
+                }
+            },
+            "processes": {
+                "mortality": {
+                    "rates": {
+                        "mortality_rate": {
+                            "type": "age_structured",
+                            "function": "1*mortality_rate*number",
+                            "inputs": {
+                                "mortality_rate": "larva.bdfs.mortality_rate"
+                            },
+                            "age_structured_inputs": {
+                                "number": "larva.n"
+                            }
+                        }
+                    },
+                    "variables": {
+                        "var": {
+                            "type": "age_structured",
+                            "function": "-mortality_rate",
+                            "age_structured_inputs": [
+                                "mortality_rate"
+                            ]
+                        }
+                    }
+                }
+            },
+            "dynamics": {
+                "numbers": {
+                    "type": "distributed_delay",
+                    "rate": {
+                        "function": "dev_rate * k/Del",
+                        "inputs": {
+                            "dev_rate": "larva.bdfs.development_rate"
+                        }
+                    }
+                }
+            },
+            "age_structure": {
+                "k": 3,
+                "variable": "A"
+            },
+            "Del": 164.5
+        },
+        "pupa": {
+            "variable": "n",
+            "bdfs": {
+                "development_rate": {
+                    "type": "single",
+                    "function": "max(0, a*(TEMP-b) / (1 + c**(TEMP-d)))",
+                    "inputs": {
+                        "a": 0.00975,
+                        "b": 10.75,
+                        "c": 2.5,
+                        "d": 35.75
+                    }
+                },
+                "mortality_rate": {
+                    "type": "single",
+                    "function": "max(0, a*TEMP**4 + b*TEMP**3 + c*TEMP**2 + d*TEMP + e)",
+                    "inputs": {
+                        "a": 0.0151908,
+                        "b": -0.0029581,
+                        "c": 0.0003327,
+                        "d": -1.77e-05,
+                        "e": 3e-07
+                    }
+                }
+            },
+            "processes": {
+                "mortality": {
+                    "rates": {
+                        "mortality_rate": {
+                            "type": "age_structured",
+                            "function": "1*mortality_rate*number",
+                            "inputs": {
+                                "mortality_rate": "pupa.bdfs.mortality_rate"
+                            },
+                            "age_structured_inputs": {
+                                "number": "pupa.n"
+                            }
+                        }
+                    },
+                    "variables": {
+                        "var": {
+                            "type": "age_structured",
+                            "function": "-mortality_rate",
+                            "age_structured_inputs": [
+                                "mortality_rate"
+                            ]
+                        }
+                    }
+                }
+            },
+            "dynamics": {
+                "numbers": {
+                    "type": "distributed_delay",
+                    "rate": {
+                        "function": "dev_rate * k/Del",
+                        "inputs": {
+                            "dev_rate": "pupa.bdfs.development_rate"
+                        }
+                    }
+                }
+            },
+            "age_structure": {
+                "k": 3,
+                "variable": "A"
+            },
+            "Del": 108.36
+        },
+        "preov": {
+            "variable": "n",
+            "bdfs": {
+                "development_rate": {
+                    "type": "single",
+                    "function": "max(0, a*(TEMP-b) / (1 + c**(TEMP-d)))",
+                    "inputs": {
+                        "a": 0.00155,
+                        "b": 4.37,
+                        "c": 3.5,
+                        "d": 33.5
+                    }
+                },
+                "mortality_rate": {
+                    "type": "single",
+                    "function": "max(0, a*TEMP**4 + b*TEMP**3 + c*TEMP**2 + d*TEMP + e)",
+                    "inputs": {
+                        "a": 0.0042006,
+                        "b": 0.0002382,
+                        "c": 3.21e-05,
+                        "d": -4.1e-06,
+                        "e": 1e-07
+                    }
+                }
+            },
+            "processes": {
+                "mortality": {
+                    "rates": {
+                        "mortality_rate": {
+                            "type": "age_structured",
+                            "function": "1*mortality_rate*number",
+                            "inputs": {
+                                "mortality_rate": "preov.bdfs.mortality_rate"
+                            },
+                            "age_structured_inputs": {
+                                "number": "preov.n"
+                            }
+                        }
+                    },
+                    "variables": {
+                        "var": {
+                            "type": "age_structured",
+                            "function": "-mortality_rate",
+                            "age_structured_inputs": [
+                                "mortality_rate"
+                            ]
+                        }
+                    }
+                }
+            },
+            "dynamics": {
+                "numbers": {
+                    "type": "distributed_delay",
+                    "rate": {
+                        "function": "dev_rate * k/Del",
+                        "inputs": {
+                            "dev_rate": "preov.bdfs.development_rate"
+                        }
+                    }
+                }
+            },
+            "age_structure": {
+                "k": 3,
+                "variable": "A"
+            },
+            "Del": 495.17
+        },
+        "adult": {
+            "variable": "n",
+            "bdfs": {
+                "development_rate": {
+                    "type": "single",
+                    "function": "max(0, a*(TEMP-b) / (1 + c**(TEMP-d)))",
+                    "inputs": {
+                        "a": 0.00155,
+                        "b": 4.37,
+                        "c": 3.5,
+                        "d": 33.5
+                    }
+                },
+                "mortality_rate": {
+                    "type": "single",
+                    "function": "max(0, a*TEMP**4 + b*TEMP**3 + c*TEMP**2 + d*TEMP + e)",
+                    "inputs": {
+                        "a": 0.0042006,
+                        "b": 0.0002382,
+                        "c": 3.21e-05,
+                        "d": -4.1e-06,
+                        "e": 1e-07
+                    }
+                },
+                "reproduction_rate": {
+                    "type": "age_structured",
+                    "function": "max(0, a*(A-b) / (1 + c**(A-d)))",
+                    "inputs": {
+                        "a": 0.013589,
+                        "b": 75.0,
+                        "c": 1.001385,
+                        "d": 0.0
+                    }
+                },
+                "reproduction_temp_scalar": {
+                    "function": "max(0, min(1, a*(TEMP-b) / (1 + c**(TEMP-d))))",
+                    "inputs": {
+                        "a": 0.065,
+                        "b": 9.85,
+                        "c": 2.5,
+                        "d": 29.0
+                    }
+                }
+            },
+            "processes": {
+                "mortality": {
+                    "rates": {
+                        "mortality_rate": {
+                            "type": "age_structured",
+                            "function": "1*mortality_rate*number",
+                            "inputs": {
+                                "mortality_rate": "adult.bdfs.mortality_rate"
+                            },
+                            "age_structured_inputs": {
+                                "number": "adult.n"
+                            }
+                        }
+                    },
+                    "variables": {
+                        "var": {
+                            "type": "age_structured",
+                            "function": "-mortality_rate",
+                            "age_structured_inputs": [
+                                "mortality_rate"
+                            ]
+                        }
+                    }
+                },
+                "reproduction": {
+                    "rates": {
+                        "reproduction_rate": {
+                            "function": "total_egg * 1*temp_scalar*sex_ratio",
+                            "inputs": {
+                                "temp_scalar": "adult.bdfs.reproduction_temp_scalar",
+                                "sex_ratio": 0.5
+                            }
+                        }
+                    },
+                    "variables": {
+                        "var": {
+                            "function": "reproduction_rate"
+                        }
+                    },
+                    "functions": {
+                        "total_egg": {
+                            "type": "age_structured_integral",
+                            "integrand": "reproduction_rate * number",
+                            "age_structured_inputs": {
+                                "reproduction_rate": "adult.bdfs.reproduction_rate",
+                                "number": "adult.n"
+                            }
+                        }
+                    },
+                    "variable_connections": {
+                        "n": "Alfalfa weevil.egg.n_1"
+                    }
+                }
+            },
+            "dynamics": {
+                "numbers": {
+                    "type": "distributed_delay",
+                    "rate": {
+                        "function": "dev_rate * k/Del",
+                        "inputs": {
+                            "dev_rate": "adult.bdfs.development_rate"
+                        }
+                    }
+                }
+            },
+            "age_structure": {
+                "k": 3,
+                "variable": "A"
+            },
+            "Del": 1098.0
+        },
+        "diapause": {
+            "variable": "n",
+            "bdfs": {
+                "entry": {
+                    "function": "a*DAY_LENGTH+b",
+                    "inputs": {
+                        "a": 1.0,
+                        "b": -11.5
+                    }
+                },
+                "exit": {
+                    "function": "a*DAY_LENGTH+b",
+                    "inputs": {
+                        "a": -1.0,
+                        "b": 12.5
+                    }
+                }
+            },
+            "dynamics": {
+                "numbers": {
+                    "type": "population_variable"
+                }
+            }
+        }
+    },
+    "stage_structure": {
+        "egg": {
+            "next_stage": {
+                "larva": {
+                    "target_variable": "n_1"
+                }
+            }
+        },
+        "larva": {
+            "next_stage": {
+                "pupa": {
+                    "target_variable": "n_1"
+                }
+            }
+        },
+        "pupa": {
+            "next_stage": {
+                "adult": {
+                    "rate": "1 - diap_entry_rate",
+                    "inputs": {
+                        "diap_entry_rate": "Alfalfa weevil.diapause.bdfs.entry"
+                    },
+                    "target_variable": "n_1"
+                },
+                "diapause": {
+                    "rate": "diap_entry_rate",
+                    "inputs": {
+                        "diap_entry_rate": "Alfalfa weevil.diapause.bdfs.entry"
+                    },
+                    "target_variable": "n"
+                }
+            }
+        },
+        "diapause": {
+            "next_stage": {
+                "preov": {
+                    "rate": "diap_exit_rate",
+                    "inputs": {
+                        "diap_exit_rate": "diapause.bdfs.exit"
+                    },
+                    "target_variable": "n_1"
+                }
+            }
+        }
+    }
+}

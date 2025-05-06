@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Data Dashboard</h1>
+
+    <div id="dashboard-content">
+        <!-- The Dash app or output will be embedded or linked here -->
+        <iframe src="/dash/" width="100%" height="600" style="border:none;"></iframe>
+    </div>
+
+    <hr>
+
+    <h3>Download Your Data</h3>
+    <a href="{{ url_for('static', filename='output/result.csv') }}" download>Download CSV</a>
+</body>
+</html>
