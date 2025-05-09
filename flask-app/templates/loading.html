@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Processing...{% endblock %}
+
+{% block content %}
+
+<div class="spinner-container">
+    <h2>Loading</h2>
+    <div class="loader"></div>
+    <p>Processing your model...</p>
+</div>
+
+<ul id="checklist">
+    <li id="step1" class="check-item">
+      <i class="fa fa-square icon"></i>
+      <span class="text">Collecting ODK Data...</span>
+    </li>
+    <li id="step2" class="check-item">
+      <i class="fa fa-square icon"></i>
+      <span class="text">Building your model... </span>
+    </li>
+    <li id="step3" class="check-item">
+      <i class="fa fa-square icon"></i>
+      <span class="text">Compiling your model...</span>
+    </li>
+    
+  </ul>
+  
+
+<script>
+    const eventSource = new EventSource("/start_processing");
+
+    function updateStep(stepId, message) {
+        const step = document.getElementById(stepId);
+        const icon = step.querySelector('.icon');
+        const text = step.querySelector('.text');
+
+        icon.classList.remove('fa-square', 'fa-regular');
+        icon.classList.add('fa-solid', 'fa-check-square');
+        
+        text.textContent = message;
+        step.classList.add('fade-in');
+    }
+
+    eventSource.onmessage = function(event) {
+        const msg = event.data;
+
+        if (msg === "script1_done") updateStep("step1", "Collected ODK Data");
+        else if (msg === "script2_done") updateStep("step2", "Built your model");
+        else if (msg === "script3_done") updateStep("step3", "Compiled!");
+        else if (msg === "done") {
+            eventSource.close();
+            setTimeout(() => window.location.href = "/interact", 1000);
+        }
+    };
+</script>
+{% endblock %}

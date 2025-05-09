@@ -1,9 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Interact{% endblock %}
+
+{% block content %}
+
+<h1>ODK Submissions</h1>
+
+<p>If you want to use a model already parametrised, select it from the list below. If you want to parametrise a new
+    model, click the button below to open the external form, then refresh the page to update the options.</p>
+
+<!-- Button to go to external site -->
+<a href="https://external-site.com" target="_blank" class="button">Go to External Site</a>
+
+<!-- Button to refresh the page -->
+<button onclick="window.location.reload();" class="button">Refresh List</button>
+
+<!-- Display the list of submissions in a dropdown (this part is dynamic) -->
 <form method="post">
-    <label>Select a submission:</label>
-    <select name="submission">
-        {% for item in submissions %}
-            <option value="{{ item }}">{{ item }}</option>
+    <label for="submission">Select Submission:</label>
+    <select name="submission" id="submission">
+        {% for submission in submissions %}
+        <option value="{{ submission }}">{{ submission }}</option>
         {% endfor %}
     </select>
-    <button type="submit">Submit</button>
+    <button type="submit" class="button">Submit</button>
 </form>
+
+
+{% endblock %}

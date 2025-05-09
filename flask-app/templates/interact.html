@@ -1,25 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Interact</title>
-</head>
-<body>
-    <h1>User Interaction</h1>
+{% extends 'base.html' %}
 
-    <form method="post">
-        {% if options.text %}
-            <label for="text_input">{{ options.text }}</label><br>
-            <input type="text" name="text_input" id="text_input"><br><br>
+{% block title %}Interact{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    <label 
+    {% for param in options %}
+        <label for="{{ param.name }}">{{ param.label }}</label><br>
+
+        {% if param.type in ['text', 'number'] %}
+            <input 
+                type="{{ param.type }}" 
+                name="{{ param.name }}" 
+                id="{{ param.name }}" 
+                value="{{ param.default | default('') }}"><br><br>
+
+        {% elif param.type == 'yesno' %}
+            <input type="radio" 
+                   name="{{ param.name }}" 
+                   value="yes"
+                   {% if param.default == 'yes' %}checked{% endif %}> Yes
+
+            <input type="radio" 
+                   name="{{ param.name }}" 
+                   value="no"
+                   {% if param.default == 'no' %}checked{% endif %}> No
+            <br><br>
         {% endif %}
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
 
-        {% if options.yes_no %}
-            <label>{{ options.yes_no }}</label><br>
-            <input type="radio" name="yes_no" value="yes"> Yes<br>
-            <input type="radio" name="yes_no" value="no"> No<br><br>
-        {% endif %}
-
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
-``
+{% endblock %}

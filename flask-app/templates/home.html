@@ -1,3 +1,19 @@
-<h1>Welcome to the Flask App</h1>
-<a href="{{ url_for('odk') }}">Go to ODK Page</a>
-<a href="{{ url_for('upload') }}">Upload JSON</a>
+{% extends 'base.html' %}
+
+{% block title %}Interact{% endblock %}
+
+{% block content %}
+
+<h1>PBDM Web App demo</h1>
+
+<p>Choose an option to get started:</p>
+    
+    <div class="button-container">
+        <a href="{{ url_for('odk') }}" class="button">ODK</a><br>
+        <a href="{{ url_for('upload') }}" class="button">Upload</a>
+    </div>
+
+{% endblock %}
+
+
+

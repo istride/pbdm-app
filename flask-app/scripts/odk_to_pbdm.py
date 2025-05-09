@@ -141,6 +141,8 @@ class Insect:
     ):
         pop_data = {
             "name": org_name,
+            "variable_ports": [],
+            "variable_connections": {},
             "sub_populations": {},
             "stage_structure": {},
         }
@@ -154,6 +156,8 @@ class Insect:
                 "processes": {},
                 "dynamics": {},
             }
+            pop_data["variable_ports"].append(f"{stage}_n_1")
+            pop_data["variable_connections"].update({f"{stage}_n_1": f"{stage}.n_1"})
         
         # Process dynamics
         for name, data in dynamics.items():

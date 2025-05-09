@@ -1,5 +1,32 @@
 import pandas as pd
 
+def create_pbdm_data(client, odk_form_id):
+    form_id = get_most_recent_by_org_name(client, odk_form_id)
+
+    (
+        repro,
+        repro_scalars_var,
+        repro_scalar_constants,
+        dynamics_repeat,
+        dynamics_scalars_var,
+        dynamics_scalar_constants,
+        mortality_repeat,
+        mortality_scalars_var,
+        mortality_scalar_constants,
+    ) = get_submission_tables(client)
+
+    data = {}
+    data["org_name"], data["repro"], data["diapause"] = repro_data(
+        form_id, repro, repro_scalars_var, repro_scalar_constants
+    )
+    data["dynamics"] = dynamics_data(
+        form_id, dynamics_repeat, dynamics_scalars_var, dynamics_scalar_constants
+    )
+    data["mortality"] = mortality_data(
+        form_id, mortality_repeat, mortality_scalars_var, mortality_scalar_constants
+    )
+
+    return data
 
 def get_table(client, default={}, **kwargs):
     try:
@@ -25,7 +52,7 @@ def bdf_params(row, address):
     )
 
 
-def get_submission_tables():
+def get_submission_tables(client):
     repro = pd.json_normalize(
         data=get_table(client, table_name="Submissions").get("value", {}), sep="/"
     )
@@ -357,35 +384,8 @@ def mortality_data(
     return mortality
 
 
-def create_pbdm_data(client, odk_form_id):
-    form_id = get_most_recent_by_org_name(client, odk_form_id)
 
-    (
-        repro,
-        repro_scalars_var,
-        repro_scalar_constants,
-        dynamics_repeat,
-        dynamics_scalars_var,
-        dynamics_scalar_constants,
-        mortality_repeat,
-        mortality_scalars_var,
-        mortality_scalar_constants,
-    ) = get_submission_tables()
-
-    data = {}
-    data["org_name"], data["repro"], data["diapause"] = repro_data(
-        form_id, repro, repro_scalars_var, repro_scalar_constants
-    )
-    data["dynamics"] = dynamics_data(
-        form_id, dynamics_repeat, dynamics_scalars_var, dynamics_scalar_constants
-    )
-    data["mortality"] = mortality_data(
-        form_id, mortality_repeat, mortality_scalars_var, mortality_scalar_constants
-    )
-
-    return data
-
-
+"""
 import os
 from pyodk.client import Client
 
@@ -396,10 +396,10 @@ client = Client(config_path=CONFIG_DIR)
 client.projects.default_project_id = 10
 client.forms.default_form_id = "pbdm_bdf"
 client.submissions.default_form_id = "pbdm_bdf"
+"""
+#data = create_pbdm_data(client, "Organism")
 
-data = create_pbdm_data(client, "Organism")
-
-print(data)
+#print(data)
 #print(create_pbdm_data(client, 0))
 
 

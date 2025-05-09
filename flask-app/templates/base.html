@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}PBDM App{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <a href="https://idems.international" target="_blank" title="IDEMS">
+                <img src="{{ url_for('static', filename='images/IDEMS_logomark.png') }}" alt="IDEMS_logomark">
+            </a>
+            <a href="https://www.enea.it/en/" target="_blank" title="ENEA">
+                <img src="{{ url_for('static', filename='images/ENEA_logomark.png') }}" alt="ENEA_logomark">
+            </a>
+            <a href="https://casasglobal.org" target="_blank" title="CASAS Global">
+                <img src="{{ url_for('static', filename='images/CASAS_logomark.png') }}" alt="CASAS_logomark">
+            </a>
+            <a href="https://topos.institute" target="_blank" title="Topos Institute">
+                <img src="{{ url_for('static', filename='images/Topos_logomark.png') }}" alt="Topos_logomark">
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
+    </div>
+</body>
+</html>
