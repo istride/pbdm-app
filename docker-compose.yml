@@ -1,0 +1,6 @@
+services:
+  pbdm_app:
+    build: .
+    image: istride/pbdm_app:latest
+    ports:
+      - "8000:8000"

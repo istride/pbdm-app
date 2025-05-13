@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Response
-from dash_app.dashboard import create_dashboard
-from scripts import translate_odk
-from scripts.odk_to_pbdm import Insect
+from pbdm_app.dash_app.dashboard import create_dashboard
+from pbdm_app.scripts import translate_odk
+from pbdm_app.scripts.odk_to_pbdm import Insect
 import os
 from pyodk.client import Client
-from pbdm.functional_population.functional_population import FunctionalPopulation
-import json
-from scripts.pbdm_to_psymple import pbdmRunner
+# from pbdm.functional_population.functional_population import FunctionalPopulation
+# from pbdm_app.scripts.pbdm_to_psymple import pbdmRunner
 import time
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
@@ -23,10 +22,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(''))
 CONFIG_DIR = os.path.join(BASE_DIR, "pbdm-flask-app", "pyodk_config.toml")
 FILES_DIR = os.path.join(BASE_DIR, "pbdm-flask-app", "flask-app", "files")
 # Authenticate with ODK Central
-client = Client(config_path=CONFIG_DIR)
-client.projects.default_project_id = 10
-client.forms.default_form_id = "pbdm_bdf"
-client.submissions.default_form_id = "pbdm_bdf"
+# client = Client(config_path=CONFIG_DIR)
+# client.projects.default_project_id = 10
+# client.forms.default_form_id = "pbdm_bdf"
+# client.submissions.default_form_id = "pbdm_bdf"
+client = None
 
 @app.route('/')
 def home():
@@ -75,11 +75,11 @@ def compile_model(client, odk_form_id):
     time.sleep(1)
 
     
-    obj = pbdmRunner(pbdm_data)
+    # obj = pbdmRunner(pbdm_data)
     yield 'data: script3_done\n\n'  
     time.sleep(1)
 
-    model_store[odk_form_id] = obj
+    # model_store[odk_form_id] = obj
     yield 'data: done\n\n'
     
     

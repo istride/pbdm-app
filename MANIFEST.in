@@ -1,0 +1,3 @@
+include src/pbdm_app/static/**/*.css
+include src/pbdm_app/static/**/*.png
+include src/pbdm_app/templates/*.html
