@@ -1,0 +1,8 @@
+Flask
+dash
+pandas
+plotly
+pyodk
+requests
+scipy
+setuptools
