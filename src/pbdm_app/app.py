@@ -4,7 +4,7 @@ from pbdm_app.scripts import translate_odk
 from pbdm_app.scripts.odk_to_pbdm import Insect
 import os
 from pyodk.client import Client
-# from pbdm.functional_population.functional_population import FunctionalPopulation
+from pbdm.functional_population.functional_population import FunctionalPopulation
 # from pbdm_app.scripts.pbdm_to_psymple import pbdmRunner
 import time
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
