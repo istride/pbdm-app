@@ -10,23 +10,21 @@ import time
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key'  # Needed for session management
+app.config.from_prefixed_env()
 
 model_store = {}
 
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+BASE_DIR = "pbdm-flask-app"
+FILES_DIR = os.path.join(BASE_DIR, "files")
+os.makedirs(FILES_DIR, exist_ok=True)
+UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
+os.makedirs(UPLOADS_DIR, exist_ok=True)
 
-BASE_DIR = os.path.dirname(os.path.abspath(''))
-CONFIG_DIR = os.path.join(BASE_DIR, "pbdm-flask-app", "pyodk_config.toml")
-FILES_DIR = os.path.join(BASE_DIR, "pbdm-flask-app", "flask-app", "files")
 # Authenticate with ODK Central
-# client = Client(config_path=CONFIG_DIR)
-# client.projects.default_project_id = 10
-# client.forms.default_form_id = "pbdm_bdf"
-# client.submissions.default_form_id = "pbdm_bdf"
-client = None
+client = Client()
+client.projects.default_project_id = 10
+client.forms.default_form_id = "pbdm_bdf"
+client.submissions.default_form_id = "pbdm_bdf"
 
 @app.route('/')
 def home():
@@ -51,7 +49,7 @@ def start_processing():
 def upload():
     if request.method == 'POST':
         file = request.files['json_file']
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        filepath = os.path.join(app.config['UPLOADS_DIR'], file.filename)
         file.save(filepath)
         session['uploaded_file'] = filepath
         return redirect(url_for('interact'))
