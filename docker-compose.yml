@@ -2,9 +2,9 @@ services:
   pbdm_app:
     build: .
     environment:
-      FLASK_SECRET_KEY: pbdm_secret_key
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-pbdm_secret_key}
       PYODK_CONFIG_FILE: /run/secrets/pyodk_config
-    image: istride/pbdm_app:latest
+    image: idems/pbdm-app:dev
     ports:
       - "8000:8000"
     secrets:
