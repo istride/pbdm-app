@@ -161,3 +161,4 @@ flask-app/files/
 flask-app/scripts/__pycache__/odk_to_pbdm.cpython-311.pyc
 flask-app/scripts/__pycache__/translate_odk.cpython-311.pyc
 flask-app/dash_app/__pycache__/dashboard.cpython-311.pyc
+pbdm-flask-app/
