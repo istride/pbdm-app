@@ -19,6 +19,7 @@ jobs:
       region: ${{ vars.GCP_REGION }}
       service_name: ${{ vars.GCP_SERVICE_NAME }}
       identity: ${{ vars.GCP_SERVICE_IDENTITY }}
+      env: ${{ vars.GCP_SERVICE_ENV }}
       secrets: ${{ vars.GCP_SERVICE_SECRETS }}
       service_account: ${{ vars.GCP_DEPLOYMENT_SERVICE_ACCOUNT }}
       workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}

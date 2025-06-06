@@ -14,8 +14,11 @@ on:
       identity:
         required: true
         type: string
+      env:
+        required: true
+        type: string
       secrets:
-        required: false
+        required: true
         type: string
       service_account:
         required: true
@@ -47,4 +50,5 @@ jobs:
             --port=8000 \
             --allow-unauthenticated \
             --service-account=${{ inputs.identity }} \
+            --set-env-vars=${{ inputs.env }} \
             --update-secrets=${{ inputs.secrets }}
