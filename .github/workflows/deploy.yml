@@ -33,7 +33,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           service_account: ${{ inputs.service_account }}
-          workload_identity_provider: ${{ inputs.service_account }}
+          workload_identity_provider: ${{ inputs.workload_identity_provider }}
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
       - name: Deploy to environment
