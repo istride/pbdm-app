@@ -19,8 +19,10 @@ on:
         type: string
       service_account:
         required: true
+        type: string
       workload_identity_provider:
         required: true
+        type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
