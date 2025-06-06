@@ -1,6 +1,6 @@
 name: Deploy to Google Cloud Run
 on:
-  workflow_dispath:
+  workflow_dispatch:
     inputs:
       image:
         required: true
