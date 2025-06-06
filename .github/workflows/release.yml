@@ -1,0 +1,25 @@
+name: Release
+on:
+  release:
+    types:
+      - released
+jobs:
+  build:
+    uses: IDEMSInternational/parenttext-goals-webhooks/.github/workflows/publish-container-image.yml@a75761f92adb500d545a3c5e93aca4ba796fded0
+    secrets:
+      password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    with:
+      repository: ${{ vars.CONTAINER_REPO }}
+      username: ${{ vars.DOCKERHUB_USERNAME }}
+  deploy:
+    needs: build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      image: ${{ needs.build.outputs.image_tag }}
+      region: ${{ vars.GCP_REGION }}
+      service_name: ${{ vars.GCP_SERVICE_NAME }}
+      identity: ${{ vars.GCP_SERVICE_IDENTITY }}
+      env: ${{ vars.GCP_SERVICE_ENV }}
+      secrets: ${{ vars.GCP_SERVICE_SECRETS }}
+      service_account: ${{ vars.GCP_DEPLOYMENT_SERVICE_ACCOUNT }}
+      workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
